@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$XELEN</title>
+  <link rel="icon" type="image/x-icon" href="img/p1.png">
+ <style>
+  /* Global styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://cdn.wallpapersafari.com/35/72/9FSAxv.gif'); /* Set your image */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+    box-sizing: border-box;
+    background-size: cover;
+}
+
+/* Chat container */
+#chat-container {
+    width: 500px;
+    max-width: 100%;
+    height: 600px; /* Fixed height for the chat container */
+    background: url('https://i.pinimg.com/originals/6c/c7/dd/6cc7dd906a4e0ea7cd9ee5873ff69cb5.gif') no-repeat center center/cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animation for fade-in */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Chat body area */
+#chat-body {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto; /* Allow scroll */
+    max-height: 400px; /* Limit the height for scrolling */
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: url('https://i.pinimg.com/originals/6c/c7/dd/6cc7dd906a4e0ea7cd9ee5873ff69cb5.gif') no-repeat center center/cover;
+    background-size: cover;
+}
+
+/* Welcome message styling */
+#welcome-message {
+    font-size: 18px;
+    color: #ffffff;
+    text-align: center;
+    font-style: italic;
+    margin-top: 50px;
+}
+
+/* Input area */
+#input-container {
+    display: flex;
+    padding: 12px;
+    background: url('https://i.pinimg.com/originals/6c/c7/dd/6cc7dd906a4e0ea7cd9ee5873ff69cb5.gif') no-repeat center center/cover;
+    background: url('https://i.pinimg.com/originals/6c/c7/dd/6cc7dd906a4e0ea7cd9ee5873ff69cb5.gif') no-repeat center center/cover;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* User input styling */
+#user-input {
+    flex-grow: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Focused state for input */
+#user-input:focus {
+    border-color: #2575fc;
+}
+
+/* Send button styling */
+#send-button {
+    padding: 12px 20px;
+    background: url('https://i.pinimg.com/originals/6c/c7/dd/6cc7dd906a4e0ea7cd9ee5873ff69cb5.gif') no-repeat center center/cover;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for send button */
+#send-button:hover {
+    background-color: #6a11cb;
+}
+
+/* Message styling */
+.message {
+    padding: 15px;
+    border-radius: 20px;
+    max-width: 70%;
+    word-wrap: break-word;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 5px 0;
+    position: relative;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+/* Animation for sliding in messages */
+@keyframes slideIn {
+    0% { transform: translateX(50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* User message styling */
+.user {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+    border-radius: 20px 20px 0 20px;
+    align-self: flex-end;
+}
+
+/* Bot message styling */
+.bot {
+    background-color: #f1f1f1;
+    color: #333;
+    margin-right: auto;
+    border-radius: 20px 20px 20px 0;
+    align-self: flex-start;
+}
+
+/* Custom scrollbar styling */
+#chat-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-body::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+#chat-body::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Container for social media links */
+.social-media-container {
+    display: flex; /* Use flexbox to display icons horizontally */
+    justify-content: start; /* Align the icons to the left */
+    gap: 10px; /* Add space between the icons */
+    margin-top: 10px; /* Space above the social media links */
+}
+
+/* Optional: Adjust social media icon size and hover effect */
+.social-media-container img {
+    width: 40px; /* Set the width of the icons */
+    cursor: pointer; /* Change the cursor to pointer on hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add smooth scale effect */
+}
+
+/* Hover effect for social media icons */
+.social-media-container img:hover {
+    transform: scale(1.1); /* Scale up the icon when hovered */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+
+/* Style for options buttons (1234) */
+#options-container button {
+    font-size: 10px; /* Smaller font size for the buttons */
+    padding: 8px 12px; /* Reduce padding */
+    margin: 5px 0; /* Adjust margin for tighter spacing */
+    border-radius: 8px; /* Optional: make the corners of the buttons more rounded */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth hover effects */
+    margin-left: 7px;
+  }
+  
+  #options-container button:hover {
+    background-color: #2575fc; /* Change color on hover */
+    transform: scale(1.05); /* Slightly scale up the button on hover */
+  }
+  
+  .option-description {
+    font-size: 15px; /* Smaller font size for descriptions */
+    color: #fff;
+    margin-left: 7px;
+  }
+  
+
+/* Adjust for small screens */
+@media (max-width: 500px) {
+    #chat-container {
+        width: 90%;
+        height: 450px;
+    }
+
+    #send-button, #user-input {
+        font-size: 14px;
+    }
+
+    .message {
+        font-size: 12px;
+        padding: 12px;
+    }
+}
+
+#chat-image {
+        width: 30%;
+        height: 70%;
+        background-size: cover;
+        background-position: center;
+        animation: bounce 1s infinite alternate;
+        margin-left: 3%;
+    }
+
+  
+     /* Navbar styling */
+     nav {
+        display: flex;
+        gap: 15px;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+        display: inline-block;
+        padding: 15px 20px;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #99f2c8;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a:hover {
+        background: #99f2c8;
+        color: #1f4037;
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 20px rgba(153, 242, 200, 0.5);
+    }
+
+    /* Responsivitas */
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        nav a {
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+    }
+    h1 {
+      font-size: 3rem;
+      color: #99f2c8;
+    }
+
+ </style>
+</head>
+<body>
+  <nav>
+    <li><a href="index.html"><span></span>HOME</a></li>
+  </nav>
+
+<div id="chat-container">
+  <div id="chat-body">
+    <div id="welcome-message">Welcome to $XELEN AI Chat, Say Help for more option</div>
+  </div> <!-- Tempat untuk pesan -->
+  <div id="options-container" class="hidden"></div> <!-- Opsi pilihan -->
+  <div id="input-container">
+    <input id="user-input" type="text" placeholder="Type your message" />
+    <button id="send-button">Send</button>
+  </div>
+</div>
+<div id="chat-image"></div>
+
+<script>
+  const userInput = document.getElementById('user-input');
+  const welcomeMessage = document.getElementById('welcome-message');
+  
+  userInput.addEventListener('input', () => {
+    if (userInput.value.trim() !== '') {
+      welcomeMessage.style.display = 'none'; // Hide welcome message when user starts typing
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const chatBody = document.getElementById("chat-body");
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-button");
+    const optionsContainer = document.getElementById("options-container");
+  
+    const responses = {
+            "default": "Please select one of the options below:\n",
+    };
+  
+    const socialMediaOptions = {
+      "text": "Contact us on social media!",
+      "description": "Tap this for more info on social media $XELEN.",
+      "socialLinks": [
+        {
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR66N-s5wV0YAvfZEgYeUwlfity4tiG62vRTw&s", // Twitter logo
+          link: "https://x.com/elnusdev",
+          text: "Twitter"
+        },
+        {
+          image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png", // Telegram logo
+          link: "https://t.me/elnusdev",
+          text: "Telegram"
+        },
+        {
+          image: "https://play-lh.googleusercontent.com/_hfpAmN1g530V3k7GQkQWZiNJ545ZAinnQrORuWm7Jukt0tCZK5GLxJitE9mTJzPvA", // pump.fun logo
+          link: "https://dexscreener.com/solana",
+          text: "dexscreener"
+        }
+      ]
+    };
+  
+    const options = {
+      "1": {
+        text: "$XELEN is simple and is created using HTML, CSS, and JavaScript.",
+        description: "An explanation of how this $XELEN is made."
+      },
+      "2": {
+        text: socialMediaOptions.text,
+        description: socialMediaOptions.description,
+        socialLinks: socialMediaOptions.socialLinks
+      },
+      "3": {
+        text: "ThankYou!!!",
+        description: "Exit"
+      },
+    };
+  
+    function appendMessage(text, className) {
+      const message = document.createElement("div");
+      message.textContent = text;
+      message.classList.add("message", className);
+      chatBody.appendChild(message);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  
+    function handleUserInput(userMessage) {
+      const lowerCaseMessage = userMessage.toLowerCase();
+      if (responses[lowerCaseMessage]) {
+        return responses[lowerCaseMessage];
+      } else {
+        showOptions();
+        return responses["default"];
+      }
+    }
+  
+    function showOptions() {
+      optionsContainer.innerHTML = ""; // Kosongkan opsi sebelumnya
+      optionsContainer.classList.remove("hidden");
+  
+      Object.keys(options).forEach((key) => {
+        const button = document.createElement("button");
+        button.textContent = key;
+        button.className = "option";
+        button.onclick = () => {
+          appendMessage(`Your Choices: ${key}`, "user");
+          appendMessage(options[key].text, "bot");
+  
+          // If the option contains social media links
+          if (options[key].socialLinks) {
+            const socialMediaContainer = document.createElement("div");
+            socialMediaContainer.classList.add("social-media-container");
+            options[key].socialLinks.forEach(link => {
+              const img = document.createElement("img");
+              img.src = link.image;
+              img.alt = link.text;
+              img.style.width = "40px";
+              img.style.marginRight = "10px"; // Add space between icons
+              img.style.cursor = "pointer";
+              img.onclick = () => window.open(link.link, "_blank");
+              socialMediaContainer.appendChild(img);
+            });
+            chatBody.appendChild(socialMediaContainer);
+          }
+  
+          // Clear the chat and hide the options if option 4 is selected
+          if (key === "3") {
+            setTimeout(() => {
+              chatBody.innerHTML = ""; // Clear chat
+              optionsContainer.innerHTML = ""; // Clear options as well
+              optionsContainer.classList.add("hidden"); // Hide options
+            }, 1000); // Delay to show the exit message
+          } else {
+            optionsContainer.classList.add("hidden"); // Sembunyikan opsi setelah klik
+          }
+        };
+  
+        const description = document.createElement("div");
+        description.className = "option-description";
+        description.textContent = options[key].description;
+  
+        const optionWrapper = document.createElement("div");
+        optionWrapper.className = "option-wrapper";
+        optionWrapper.appendChild(button);
+        optionWrapper.appendChild(description);
+        optionsContainer.appendChild(optionWrapper);
+      });
+    }
+  
+    sendButton.addEventListener("click", () => {
+      const userMessage = userInput.value.trim();
+      if (userMessage) {
+        appendMessage(userMessage, "user");
+        const botResponse = handleUserInput(userMessage);
+        setTimeout(() => appendMessage(botResponse, "bot"), 500);
+  
+        userInput.value = "";
+      }
+    });
+  
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendButton.click();
+      }
+    });
+});
+
+</script>
+</body>
+</html>
